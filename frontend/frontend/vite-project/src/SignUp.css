@@ -1,0 +1,17 @@
+.signup-btn{
+  border:none;
+  background-color: #413836;
+  color: white;
+  width:100%;
+  font-size: 1.2rem;
+}
+.signup-title{
+  border-bottom: 3px solid #413836;
+}
+.signup-container{
+  background-color: #b9a8a3;
+  width: 100%;
+
+}
+
+

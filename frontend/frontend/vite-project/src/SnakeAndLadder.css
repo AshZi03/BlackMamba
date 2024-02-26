@@ -1,0 +1,19 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); /* Adjust the number of columns as needed */
+  gap: 0px; /* Adjust the gap between cells as needed */
+  background-image: url(./img/SnakeAndLadder4.png);
+  background-size:cover;
+  background-position: center;
+  
+  
+
+}
+
+.grid-cell {
+  border: 1px solid #333; /* Dark border color */
+  padding: 10px; /* Add padding as needed */
+  text-align: center;
+  height:75px ;
+}
+
