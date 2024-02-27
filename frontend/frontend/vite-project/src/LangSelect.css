@@ -1,0 +1,38 @@
+/* LangSelect.css */
+
+/* Center the container vertically */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Style for the cards */
+  .card {
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 1rem;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+  }
+  
+  /* Border color for selected language */
+  .border-primary {
+    border-color: #007bff;
+  }
+  

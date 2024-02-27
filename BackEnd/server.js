@@ -95,8 +95,7 @@ db.connect((err) => {
               req.session.username = results[0].username;
               req.session.email = results[0].email;
               req.session.userid = results[0].userid;
-              console.log(req.session.id);
-              res.status(200).json({ success: true, message: 'Login successful', email: req.session.email, isLoggedIn: req.session.isLoggedIn, user_id:req.session.userid });
+              res.status(200).json({ success: true, message: 'Login successful', email: req.session.email, isLoggedIn: req.session.isLoggedIn, user_id:req.session.userid, userLang:results[0].user_lang});
             } else {
               res.status(401).json({ success: false, message: 'Invalid password' });
             }
@@ -118,6 +117,34 @@ db.connect((err) => {
         res.json({ success: true, message: 'Logout successful' });
       }
     });
+  });
+
+  app.post('/LanguageSelector', async (req, res) => {
+    const { userId, selectedLang } = req.body;
+    if (!userId || !selectedLang) {
+      return res.status(400).json({ success: false, message: 'User ID and selected language are required' });
+    }
+    let Langno = selectedLang;
+    if(selectedLang ==='Japanese')
+    {
+      Langno = 1;
+    }
+    
+  
+    // Update user's language in the database
+    db.query(
+      'UPDATE users SET user_lang = ? WHERE userid = ?',
+      [Langno, userId],
+      (err, results) => {
+        if (err) {
+          console.error('Error updating user language:', err);
+          res.status(500).json({ success: false, message: 'Failed to update user language' });
+        } else {
+          console.log('User language updated successfully');
+          res.status(200).json({ success: true, message: 'User language updated successfully' });
+        }
+      }
+    );
   });
   
 app.listen(PORT, () => {
