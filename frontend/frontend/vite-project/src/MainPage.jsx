@@ -14,13 +14,13 @@ const MainPage = () => {
   const isLoggedIn = localStorage.getItem('isLoggedIn');
   const email = localStorage.getItem('email');
   const userId = localStorage.getItem('userid');
-  
+
   const handleOptionClick = (option) => {
     setSelectedOption(option);
   };
-  
+
   const Logout = async () => {
-    
+
     try {
       const response = await fetch('http://localhost:8081/logout', {
         method: 'POST',
@@ -59,11 +59,11 @@ const MainPage = () => {
       </Row>
       <Row style={{ padding: '10px' }}>
         {/* Sidebar with responsive classes */}
-        <Col md={3} className="d-none d-md-block" style={{ borderRight:'1px solid #ddd'}}>
+        <Col md={3} className="d-none d-md-block" style={{ borderRight: '1px solid #ddd' }}>
           <Sidebar onOptionClick={handleOptionClick} />
         </Col>
         {/* Dropdown for smaller screens */}
-        <Col  xs={12} sm={12} md={6} lg={6} xl={6} style={{ padding: '10px' }}>
+        <Col xs={12} sm={12} md={6} lg={6} xl={6} style={{ padding: '10px' }}>
           <Dropdown className="d-md-none">
             <Dropdown.Toggle variant="success" id="dropdown-basic" >
               Menu
@@ -94,13 +94,10 @@ const MainPage = () => {
             <div>In Setting</div>
           ) : selectedOption === 'About us' ? (
             <div>This is About us</div>
-          ) : selectedOption=== 'Log Out' ?(
-            Logout
-          ):
-          (
+          )  : (
             <div>Enter A New Journey</div>
-          )
-        }
+          )}
+
         </Col>
         <Col md={3} style={{ padding: '0px', borderLeft: '1px solid #ddd' }}>
           {/* Empty Third Column */}
