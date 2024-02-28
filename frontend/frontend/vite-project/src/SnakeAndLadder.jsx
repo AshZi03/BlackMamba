@@ -8,7 +8,7 @@ const SnakeAndLadder = () => {
   const [question, setQuestion] = React.useState(null);
   const [option, setOption] = React.useState(null);
   const [answer, setAnswer] = React.useState(null);
-  
+  const [currentQuestionIndex, setcurrentQuestionIndex] = React.useState(0);
   const [selectedOption, setSelectedOption] = useState(null); // State to store selected option
    useEffect(() => {
     // Fetch the language value from localStorage when the component mounts
@@ -16,7 +16,41 @@ const SnakeAndLadder = () => {
     setLanguage(storedLanguage);
   }, []); // Empty dependency array ensures that this effect runs only once after mount
 
-  // Handle cell click
+  useEffect(() => {
+    if (currentQuestionIndex !== null) {
+      const fetchData = async () => {
+        try {
+          const url = 'http://localhost:8081/Questions'; // Replace this with your backend endpoint
+  
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: selectedCell,
+              language,
+            }),
+          });
+  
+          const data = await response.json();
+          setQuestion(data.data[currentQuestionIndex].question_content);
+          setOption(data.data[currentQuestionIndex].question_option);
+          setAnswer(data.data[currentQuestionIndex].question_answer);
+          if (data.success) {
+            console.log('Data sent to backend successfully');
+          } else {
+            console.log('Sending data to backend failed:', data.message);
+          }
+        } catch (error) {
+          console.error('Error sending data to backend:', error.message);
+        }
+      };
+  
+      fetchData();
+    }
+  }, [currentQuestionIndex]);
+
   const handleCellClick = async (id) => {
     setSelectedCell(id);
 
@@ -36,7 +70,7 @@ const SnakeAndLadder = () => {
       });
 
       const data = await response.json();
-      const currentQuestionIndex = 0;
+      setcurrentQuestionIndex(currentQuestionIndex); 
       setQuestion(data.data[currentQuestionIndex].question_content);
       setOption(data.data[currentQuestionIndex].question_option);
       setAnswer(data.data[currentQuestionIndex].question_answer);
@@ -52,7 +86,6 @@ const SnakeAndLadder = () => {
       console.error('Error sending data to backend:', error.message);
     }
   };
-
   useEffect(() => {
     if (selectedOption !== null) {
       console.log('Selected option changed:', selectedOption);
@@ -63,7 +96,9 @@ const SnakeAndLadder = () => {
   const handleSubmit = () => {
     if(selectedOption === answer)
     {
+      setcurrentQuestionIndex(prevIndex => prevIndex + 1);
       console.log('Correct answer');
+      
     }
     else{
       console.log('Wrong answer');
