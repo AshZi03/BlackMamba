@@ -118,7 +118,9 @@ const SnakeAndLadder = () => {
           className="grid-cell"
           onClick={() => handleCellClick(i)}
         >
+             <div className="level-number">{i}</div> {/* Level number */}
           <img src={`./img/SL/sl${i}.png`} alt={`Image ${i}`} />
+         
         </div>
       );
     }
