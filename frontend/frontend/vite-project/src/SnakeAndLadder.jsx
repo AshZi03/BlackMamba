@@ -1,7 +1,7 @@
 // Import necessary dependencies
 import React from 'react';
 import QA from './QA';
-
+import './SnakeAndLadder.css';
 // Define the SnakeAndLadder component
 const SnakeAndLadder = () => {
   const [selectedCell, setSelectedCell] = React.useState(null);
