@@ -146,6 +146,35 @@ db.connect((err) => {
       }
     );
   });
+
+  app.post('/Questions', async (req, res) => {
+    const { id, language } = req.body;
+    if (!id || !language) {
+      return res.status(400).json({ success: false, message: 'ID and selected language are required' });
+    }
+  
+    // Query to select questions based on level_lang and level_number
+    const query = `
+    SELECT l.level_number, l.level_lang, q.question_id, q.question_content, q.question_answer, q.question_option, q.question_type
+    FROM level_table l
+    JOIN question_table q ON l.level_id = q.question_level
+    WHERE l.level_number = ?
+    AND l.level_lang = ?;
+    
+    `;
+  
+    // Execute the query with parameters
+    db.query(query, [language, id], (err, results) => {
+      if (err) {
+        console.error('Error fetching questions:', err);
+        res.status(500).json({ success: false, message: 'Failed to fetch questions' });
+      } else {
+        console.log('Questions fetched successfully');
+        res.status(200).json({ success: true, data: results });
+      }
+    });
+  });
+  
   
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

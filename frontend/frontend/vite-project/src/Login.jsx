@@ -33,7 +33,6 @@ function Login() {
           if (data.success) {
                if (data.isLoggedIn) {
               localStorage.setItem('isLoggedIn', 'true');
-            
               localStorage.setItem('email', `${data.email}`)
               localStorage.setItem('userid', `${data.user_id}`)
             if(data.userLang === null || data.userLang == 0)
@@ -41,6 +40,9 @@ function Login() {
               navigate('/LangSelect');  
             }
             else{
+              localStorage.setItem('Language',`${data.userLang}`);
+              const Language = localStorage.getItem('Language');
+              console.log(Language);
               navigate('/MainPage');
               
             }

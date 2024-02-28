@@ -1,22 +1,76 @@
-// Import necessary dependencies
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import QA from './QA';
 import './SnakeAndLadder.css';
-// Define the SnakeAndLadder component
+
 const SnakeAndLadder = () => {
   const [selectedCell, setSelectedCell] = React.useState(null);
+  const [language, setLanguage] = React.useState(null);
+  const [question, setQuestion] = React.useState(null);
+  const [option, setOption] = React.useState(null);
+  const [answer, setAnswer] = React.useState(null);
+  
+  const [selectedOption, setSelectedOption] = useState(null); // State to store selected option
+   useEffect(() => {
+    // Fetch the language value from localStorage when the component mounts
+    const storedLanguage = localStorage.getItem('Language');
+    setLanguage(storedLanguage);
+  }, []); // Empty dependency array ensures that this effect runs only once after mount
 
   // Handle cell click
-  const handleCellClick = (id) => {
+  const handleCellClick = async (id) => {
     setSelectedCell(id);
+
+    try {
+      const url = 'http://localhost:8081/Questions'; // Replace this with your backend endpoint
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id,
+          language,
+          // Add other necessary fields for registration
+        }),
+      });
+
+      const data = await response.json();
+      const currentQuestionIndex = 0;
+      setQuestion(data.data[currentQuestionIndex].question_content);
+      setOption(data.data[currentQuestionIndex].question_option);
+      setAnswer(data.data[currentQuestionIndex].question_answer);
+      
+      if (data.success) {
+        // Backend successfully received data
+        console.log('Data sent to backend successfully');
+      } else {
+        // Handle failure, show an error message or take appropriate action
+        console.log('Sending data to backend failed:', data.message);
+      }
+    } catch (error) {
+      console.error('Error sending data to backend:', error.message);
+    }
   };
 
-  // Handle submit button click
+  useEffect(() => {
+    if (selectedOption !== null) {
+      console.log('Selected option changed:', selectedOption);
+      // Perform any operations based on the selected option here
+    }
+  }, [selectedOption]);
+
   const handleSubmit = () => {
-    // Perform any submit logic here if needed
-    // Reset selectedCell to bring back SnakeAndLadder component
-    setSelectedCell(null);
+    if(selectedOption === answer)
+    {
+      console.log('Correct answer');
+    }
+    else{
+      console.log('Wrong answer');
+    }
+//    setSelectedCell(null);
   };
+
 
   // Render grid cells
   const generateGrid = () => {
@@ -39,9 +93,9 @@ const SnakeAndLadder = () => {
   // Render SnakeAndLadder component
   return (
     <div>
-      {selectedCell ? (
+      {selectedCell && question && option ? (
         <div>
-          <QA />
+          <QA question={question} options={option} onSelectOption={setSelectedOption}/>
           <p>You are On Level: {selectedCell}</p>
           <button onClick={handleSubmit}>Submit</button>
         </div>
@@ -55,5 +109,4 @@ const SnakeAndLadder = () => {
   );
 };
 
-// Export SnakeAndLadder component
 export default SnakeAndLadder;
