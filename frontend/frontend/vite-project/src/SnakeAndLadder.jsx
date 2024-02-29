@@ -14,6 +14,7 @@ const SnakeAndLadder = () => {
     // Fetch the language value from localStorage when the component mounts
     const storedLanguage = localStorage.getItem('Language');
     setLanguage(storedLanguage);
+    console.log(language);
   }, []); // Empty dependency array ensures that this effect runs only once after mount
 
   useEffect(() => {

@@ -37,8 +37,11 @@ function Login() {
               localStorage.setItem('userid', `${data.user_id}`)
             if(data.userLang === null || data.userLang == 0)
             {
+              localStorage.setItem('Language',`${data.userLang}`);
+              const Language = localStorage.getItem('Language');
+              console.log(Language);
               navigate('/LangSelect');  
-            }
+              }
             else{
               localStorage.setItem('Language',`${data.userLang}`);
               const Language = localStorage.getItem('Language');
