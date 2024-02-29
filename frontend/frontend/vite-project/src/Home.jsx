@@ -8,7 +8,7 @@ function Home() {
 
   return (
   <>
-  <TopBar />
+ 
   
   <div className="container1">
   <div className="container-Home text-center">
@@ -18,10 +18,13 @@ function Home() {
         </video>
       <h1 className="display-4">Welcome to BlackMamba</h1>
       <p className="lead second-line">Start your language learning journey today!</p>
-    
-      <NavLink className="SignUp-link" to={`/SignUp`}>
-        <button className="btn  btn-lg homebuton"  role="button">Get Started</button>
+      
+      <NavLink className="SignUp-Link" to={`/SignUp`}>
+      <button class="button">
+       <span class="button-content">Get Started </span>
+    </button>
       </NavLink>
+
     </div>
     </div>
   </>

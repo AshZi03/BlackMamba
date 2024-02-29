@@ -24,14 +24,7 @@
 
 }
 
-button.btn.btn-lg.homebuton {
-    color: rgb(14, 13, 13);
-    background-color: rgb(254, 248, 248);
-}
-button.btn.btn-lg.homebuton:hover {
-    color: rgb(249, 248, 248);
-    background-color: rgb(16, 16, 16);
-}
+
 .display-4{
     font-family: 'Poppins', sans-serif;
     color: white;
@@ -40,3 +33,47 @@ p.lead.second-line {
     color: white ;
 }
 
+.SignUp-link{
+    text-decoration: none;
+}
+
+.button {
+    position: relative;
+    overflow: hidden;
+    height: 3rem;
+    padding: 0 2rem;
+    border-radius: 1.5rem;
+    background: #0d6f92;
+    background-size: 400%;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .button-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    width: 100%;
+    height: inherit;
+    border-radius: inherit;
+    background: linear-gradient(
+      82.3deg,
+      rgba(150, 93, 233, 1) 10.8%,
+      rgba(99, 88, 238, 1) 94.3%
+    );
+    transition: all 0.475s;
+  }
+  

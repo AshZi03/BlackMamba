@@ -62,51 +62,54 @@ function Login() {
     };
 
   return (
-  <>
-  
-  <TopBar/>
-   <div className="row g-0 vh-100  justify-content-center align-items-center login-container">
-    <div className="col-10  row g-0 align-items-center justify-content-center border rounded-3 bg-white login-panel">
-      <form  className="col-12 col-md-6 py-4 px-3"
-       onSubmit={(e) => {
-        e.preventDefault();
-        handleLoginIn();
-      }}>
-        <h4 className="login-title text-center py-2 mb-4">Login</h4>
-        <div className="form-floating mb-3">
+    <>
+    <TopBar />
+    <div className="background-container">
+   <div className="login-container">
+    <div className="login-box">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLoginIn();
+        }}
+      >
+        <div className="user-box">
+          <input
+            type="email"
+            name="email"
+            required=""
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          <label>Email</label>
         </div>
-        <div className="form-floating mb-3">
-        <input 
-          type="email"
-          className="form-control"
-          id="email"
-          placeholder="xyz@gmail.com"
-          onChange={(e)=>{setEmail(e.target.value)}}
-        />
-        <label htmlFor="email">Email</label>
+        <div className="user-box">
+          <input
+            type="password"
+            name="password"
+            required=""
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <label>Password</label>
         </div>
-        <div className="form-floating mb-3">
-        <input 
-          type="password"
-          className="form-control"
-          id="password"
-          placeholder="password"
-          onChange={(e)=>{setPassword(e.target.value)}}
-        />
-        <label htmlFor="password">Password</label>
-        </div>
-        <div className="text-center">
-          <button className="login-btn" type='submit'>
+        <center>
+          <button className="login-btn" type="submit">
             Login
           </button>
-        </div>
-        <div className="text-center mt-2" >
-          Don't have an Account? <NavLink className="SignUp-Link" to={`/SignUp`}> Sign up!</NavLink>
-        </div>
+        </center>
+        <div className="text-center mt-2 logindes">
+      Don't have an Account?{' '}
+      <NavLink className="SignUp-Link" to={`/SignUp`}>
+        Sign up!
+      </NavLink>
+    </div>
       </form>
     </div>
-   </div>
-
+    </div>
+    </div>
   </>
   )
 }
