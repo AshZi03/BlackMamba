@@ -7,6 +7,7 @@ import Home from './Home';
 import SnakeAndLadder from './SnakeAndLadder';
 import { useNavigate } from 'react-router-dom';
 import Login from './Login';
+import Alphabets from './Alphabets';
 
 const MainPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -89,7 +90,7 @@ const MainPage = () => {
           {selectedOption === 'Home' ? (
             <SnakeAndLadder />
           ) : selectedOption === 'Alphabets' ? (
-            <div>Hello on AlphaBets</div>
+            <Alphabets />
           ) : selectedOption === 'Setting' ? (
             <div>In Setting</div>
           ) : selectedOption === 'About us' ? (
@@ -99,7 +100,7 @@ const MainPage = () => {
           )}
 
         </Col>
-        <Col md={3} style={{ padding: '0px', borderLeft: '1px solid #ddd' }}>
+        <Col  md={3} style={{ padding: '0px', borderLeft: '1px solid #ddd' }}>
           {/* Empty Third Column */}
         </Col>
       </Row>

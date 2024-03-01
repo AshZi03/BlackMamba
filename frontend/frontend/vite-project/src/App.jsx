@@ -10,6 +10,7 @@ import MainPage from './MainPage.jsx'
 import QA from './QA.jsx'
 import SnakeAndLadder from './SnakeAndLadder.jsx'
 import LangSelect from './LangSelect.jsx'
+import Alphabets from './Alphabets.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,7 +26,7 @@ function App() {
         <Route path="/MainPage/snake-and-ladder" element={<SnakeAndLadder />} />
         <Route path="/QA" element={<QA />} />
         <Route path="/LangSelect" element={<LangSelect />} />
-        
+        <Route path = "/Alphabets" element={<Alphabets />}/>
         <Route/>
       </Routes>
     </BrowserRouter>

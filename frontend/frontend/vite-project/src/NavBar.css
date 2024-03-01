@@ -1,3 +1,42 @@
-.nav-item{
+/* NavBar.css */
+
+.navbar {
+    padding: 10px; /* Adjust the padding as needed for spacing around the Navbar */
+  }
+  
+  .logo-container {
     display: flex;
-}
+    align-items: center;
+  }
+  
+  .logo-container img {
+    margin-right: 10px; /* Adjust the margin to add space between logo and site name */
+  }
+  
+  .user-info-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-info-container .user-name {
+    font-weight: bold;
+    margin-right: 8px; /* Adjust the margin to add space between username and profile picture */
+  }
+  
+  /* Create distance between logo and user info */
+  .logo-container,
+  .user-info-container {
+    margin: 0 10px; /* Adjust the margin to create space between logo and user info */
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .logo-container img {
+      margin-right: 5px; /* Adjust the margin for smaller screens if needed */
+    }
+  
+    .user-info-container .user-name {
+      font-size: 14px; /* Adjust the font size for smaller screens if needed */
+    }
+  }
+  

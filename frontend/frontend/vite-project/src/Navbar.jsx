@@ -1,7 +1,9 @@
-// TopBar.js
+// NavBar.js
 
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import './NavBar.css';
 
 function NavBar() {
@@ -11,9 +13,10 @@ function NavBar() {
 
   return (
     <Navbar className='w-auto p-1 navbar' style={{ marginTop: '0' }} bg="white" variant="light" expand="lg">
-      <Navbar.Brand href="/">
-        <div className="d-flex align-items-center justify-content-between w-100">
-          <div>
+      <Row className="w-100">
+        <Col sm={6} className="d-flex align-items-center">
+          {/* Left side content */}
+          <div className="logo-container">
             <img
               src="/img/logo-removebg-preview.png" // Update with your actual logo path
               width="30"
@@ -21,21 +24,24 @@ function NavBar() {
               className="d-inline-block align-top"
               alt="Logo"
             />
-            {' BlackMamba'}
+            <span>{' BlackMamba'}</span>
           </div>
-          <div className="d-flex align-items-center">
-            <div style={{ fontWeight: 'bold', marginRight: '8px' }}>{userName}</div>
+        </Col>
+        <Col sm={6} className="d-flex align-items-center justify-content-end">
+          {/* Right side content */}
+          <div className="user-info-container">
+            <div className="user-name" style={{ fontWeight: 'bold', marginRight: '8px' }}>{userName}</div>
             <img
               src={profileImg}
               width="30"
               height="30"
-              className="d-inline-block align-top rounded-circle ml-auto"
+              className="d-inline-block align-top rounded-circle"
               alt="Profile"
             />
             {/* Add any additional user information or actions here */}
           </div>
-        </div>
-      </Navbar.Brand>
+        </Col>
+      </Row>
     </Navbar>
   );
 }
