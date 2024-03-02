@@ -2,6 +2,9 @@
 
 .navbar {
     padding: 10px; /* Adjust the padding as needed for spacing around the Navbar */
+    z-index: 999;
+    position: fixed;
+    
   }
   
   .logo-container {

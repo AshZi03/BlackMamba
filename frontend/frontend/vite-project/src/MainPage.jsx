@@ -8,6 +8,8 @@ import SnakeAndLadder from './SnakeAndLadder';
 import { useNavigate } from 'react-router-dom';
 import Login from './Login';
 import Alphabets from './Alphabets';
+import AboutUs from './AboutUs';
+import './MainPage.css';
 
 const MainPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -52,7 +54,7 @@ const MainPage = () => {
 
 
   return (
-    <Container fluid style={{ border: '1px solid #ddd', minHeight: '100vh' }}>
+    <Container className='cont' fluid style={{ border: '1px solid #ddd', minHeight: '100vh' }}>
       <Row style={{ borderBottom: '1px solid #ddd', padding: '10px' }}>
         <Col md={12}>
           <NavBar />
@@ -94,7 +96,7 @@ const MainPage = () => {
           ) : selectedOption === 'Setting' ? (
             <div>In Setting</div>
           ) : selectedOption === 'About us' ? (
-            <div>This is About us</div>
+            <AboutUs/>
           )  : (
             <div>Enter A New Journey</div>
           )}
