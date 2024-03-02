@@ -55,7 +55,7 @@ const MainPage = () => {
 
   return (
     <Container className='cont' fluid style={{ border: '1px solid #ddd', minHeight: '100vh' }}>
-      <Row style={{ borderBottom: '1px solid #ddd', padding: '10px' }}>
+      <Row style={{ borderBottom: '1px solid ', padding: '10px' }}>
         <Col md={12}>
           <NavBar />
         </Col>
