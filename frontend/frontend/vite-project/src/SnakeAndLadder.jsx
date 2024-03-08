@@ -8,8 +8,10 @@ const SnakeAndLadder = () => {
   const [question, setQuestion] = React.useState(null);
   const [option, setOption] = React.useState(null);
   const [answer, setAnswer] = React.useState(null);
-  const [currentQuestionIndex, setcurrentQuestionIndex] = React.useState(0);
+ const [currentQuestionIndex, setcurrentQuestionIndex] = React.useState(0);
   const [selectedOption, setSelectedOption] = useState(null); // State to store selected option
+  const userId = localStorage.getItem('userid');
+  const [length, setLength] = React.useState(0);
    useEffect(() => {
     // Fetch the language value from localStorage when the component mounts
     const storedLanguage = localStorage.getItem('Language');
@@ -74,6 +76,7 @@ const SnakeAndLadder = () => {
       if (data.success) {
         if (data.data && data.data.length > 0) {
           if (currentQuestionIndex < data.data.length) {
+            setLength(data.data.length);
             setQuestion(data.data[currentQuestionIndex].question_content);
             setOption(data.data[currentQuestionIndex].question_option);
             setAnswer(data.data[currentQuestionIndex].question_answer);
@@ -99,18 +102,37 @@ const SnakeAndLadder = () => {
     }
   }, [selectedOption]);
 
-  const handleSubmit = () => {
-    if(selectedOption === answer)
-    {
-      setcurrentQuestionIndex(prevIndex => prevIndex + 1);
-      console.log('Correct answer');
-      
-    }
-    else{
+  const handleSubmit = async () => {
+    if (selectedOption === answer) {
+      if (currentQuestionIndex === length) {
+        try {
+          const url = 'http://localhost:8081/PostLevel'; // Replace with your backend endpoint
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              level: selectedCell+1,
+              userid: userId,
+              // Add other parameters if needed
+            }),
+          });
+        
+        
+         
+        } catch (error) {
+          console.error('Error sending POST request to backend:', error.message);
+        }
+      } else {
+        setcurrentQuestionIndex(prevIndex => prevIndex + 1);
+        console.log('Correct answer');
+      }
+    } else {
       console.log('Wrong answer');
     }
-//    setSelectedCell(null);
   };
+  
 
 
   // Render grid cells
