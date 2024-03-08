@@ -1,21 +1,16 @@
 // Content.js
 
 import React from 'react';
+import './Content.css'
 
-const Content = ({ selectedOption }) => {
+const Content = () => {
   return (
-    <div>
-      {selectedOption ? (
-        <div>
-          <h2>Selected Option</h2>
-          <p>{selectedOption}</p>
-        </div>
-      ) : (
-        <div>
-          <h2>No option selected</h2>
-        </div>
-      )}
-    </div>
+   <>
+      <h5> Todays Task</h5>
+    <div class="loaderBar"></div>
+    <h5> Todays Task</h5>
+    <div class="loaderBar"></div>
+   </>
   );
 };
 

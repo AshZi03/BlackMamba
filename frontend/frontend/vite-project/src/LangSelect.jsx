@@ -54,7 +54,7 @@ const LangSelect = () => {
       <div className="row">
         <div className="col-md-4 mb-3">
           <div
-            className={`card ${selectedLang === 'English' ? 'border-primary' : ''}`}
+            className={`card2 ${selectedLang === 'English' ? 'border-primary' : ''}`}
             onClick={() => handleLangSelect('English')}
           >
             <div className="card-body">
@@ -65,7 +65,7 @@ const LangSelect = () => {
         </div>
         <div className="col-md-4 mb-3">
           <div
-            className={`card ${selectedLang === 'Japanese' ? 'border-primary' : ''}`}
+            className={`card2 ${selectedLang === 'Japanese' ? 'border-primary' : ''}`}
             onClick={() => handleLangSelect('Japanese')}
           >
             <div className="card-body">
@@ -76,7 +76,7 @@ const LangSelect = () => {
         </div>
         <div className="col-md-4 mb-3">
           <div
-            className={`card ${selectedLang === 'French' ? 'border-primary' : ''}`}
+            className={`card2 ${selectedLang === 'French' ? 'border-primary' : ''}`}
             onClick={() => handleLangSelect('French')}
           >
             <div className="card-body">

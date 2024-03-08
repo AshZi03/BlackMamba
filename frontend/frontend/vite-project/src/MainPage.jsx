@@ -10,6 +10,7 @@ import Login from './Login';
 import Alphabets from './Alphabets';
 import AboutUs from './AboutUs';
 import './MainPage.css';
+import Instruction from './Instruction';
 
 const MainPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -69,12 +70,13 @@ const MainPage = () => {
           ) : selectedOption === 'About us' ? (
             <AboutUs/>
           )  : (
-            <div>Enter A New Journey</div>
+            <Instruction/>
           )}
 
         </Col>
         <Col  md={3} style={{ padding: '0px', borderLeft: '1px solid #ddd' }}>
           {/* Empty Third Column */}
+          <Content/>
         </Col>
       </Row>
     </Container>
