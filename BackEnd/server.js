@@ -152,7 +152,8 @@ db.connect((err) => {
     if (!id || !language) {
       return res.status(400).json({ success: false, message: 'ID and selected language are required' });
     }
-  
+    console.log(id);
+    console.log(language);
     // Query to select questions based on level_lang and level_number
     const query = `
     SELECT l.level_number, l.level_lang, q.question_id, q.question_content, q.question_answer, q.question_option, q.question_type
@@ -164,12 +165,13 @@ db.connect((err) => {
     `;
   
     // Execute the query with parameters
-    db.query(query, [language, id], (err, results) => {
+    db.query(query, [id, language], (err, results) => {
       if (err) {
         console.error('Error fetching questions:', err);
         res.status(500).json({ success: false, message: 'Failed to fetch questions' });
       } else {
         console.log('Questions fetched successfully');
+        console.log(results);
         res.status(200).json({ success: true, data: results });
       }
     });

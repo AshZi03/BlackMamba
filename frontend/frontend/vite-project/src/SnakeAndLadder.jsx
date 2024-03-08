@@ -56,8 +56,8 @@ const SnakeAndLadder = () => {
     setSelectedCell(id);
 
     try {
-      const url = 'http://localhost:8081/Questions'; // Replace this with your backend endpoint
-
+      const url = 'http://localhost:8081/Questions';
+    
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -66,26 +66,31 @@ const SnakeAndLadder = () => {
         body: JSON.stringify({
           id,
           language,
-          // Add other necessary fields for registration
         }),
       });
-
+    
       const data = await response.json();
-      setcurrentQuestionIndex(currentQuestionIndex); 
-      setQuestion(data.data[currentQuestionIndex].question_content);
-      setOption(data.data[currentQuestionIndex].question_option);
-      setAnswer(data.data[currentQuestionIndex].question_answer);
       
       if (data.success) {
-        // Backend successfully received data
-        console.log('Data sent to backend successfully');
+        if (data.data && data.data.length > 0) {
+          if (currentQuestionIndex < data.data.length) {
+            setQuestion(data.data[currentQuestionIndex].question_content);
+            setOption(data.data[currentQuestionIndex].question_option);
+            setAnswer(data.data[currentQuestionIndex].question_answer);
+            console.log('Data sent to backend successfully');
+          } else {
+            console.log('currentQuestionIndex out of bounds:', currentQuestionIndex);
+          }
+        } else {
+          console.log('No questions received from the backend');
+        }
       } else {
-        // Handle failure, show an error message or take appropriate action
         console.log('Sending data to backend failed:', data.message);
       }
     } catch (error) {
       console.error('Error sending data to backend:', error.message);
     }
+    
   };
   useEffect(() => {
     if (selectedOption !== null) {
