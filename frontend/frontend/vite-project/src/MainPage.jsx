@@ -10,7 +10,7 @@ import Login from './Login';
 import Alphabets from './Alphabets';
 import AboutUs from './AboutUs';
 import './MainPage.css';
-import Instruction from './Instruction';
+import Instruction from './Instruction.jsx'
 
 const MainPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -26,7 +26,7 @@ const MainPage = () => {
   
 
   return (
-    <Container className='cont' fluid style={{ border: '1px solid #ddd', minHeight: '100vh' }}>
+    <Container className='cont  ' fluid style={{ border: '1px solid #ddd', minHeight: '100vh' }}>
       <Row style={{ borderBottom: '1px solid ', padding: '10px' }}>
         <Col md={12}>
           <NavBar />

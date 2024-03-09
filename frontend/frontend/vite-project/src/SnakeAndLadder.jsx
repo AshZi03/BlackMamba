@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from 'react';
 import QA from './QA';
 import './SnakeAndLadder.css';
-
+import { NavLink, useNavigate } from 'react-router-dom';
 const SnakeAndLadder = () => {
   const [selectedCell, setSelectedCell] = React.useState(null);
   const [language, setLanguage] = React.useState(null);
@@ -12,6 +12,10 @@ const SnakeAndLadder = () => {
   const [selectedOption, setSelectedOption] = useState(null); // State to store selected option
   const userId = localStorage.getItem('userid');
   const [length, setLength] = React.useState(0);
+  const [submitButton, setSubmitButton] = useState(null); // State to store selected option
+ 
+  const navigate = useNavigate();
+  
    useEffect(() => {
     // Fetch the language value from localStorage when the component mounts
     const storedLanguage = localStorage.getItem('Language');
@@ -104,7 +108,11 @@ const SnakeAndLadder = () => {
 
   const handleSubmit = async () => {
     if (selectedOption === answer) {
-      if (currentQuestionIndex === length) {
+      console.log(currentQuestionIndex);
+      console.log(length);
+      if (currentQuestionIndex === length-1) {
+        setSubmitButton(1);
+        console.log('this code executed');
         try {
           const url = 'http://localhost:8081/PostLevel'; // Replace with your backend endpoint
           const response = await fetch(url, {
@@ -118,16 +126,18 @@ const SnakeAndLadder = () => {
               // Add other parameters if needed
             }),
           });
-        
-        
-         
+          
+          
         } catch (error) {
           console.error('Error sending POST request to backend:', error.message);
         }
+        setSubmitButton(0);
       } else {
+        setSubmitButton(0)
         setcurrentQuestionIndex(prevIndex => prevIndex + 1);
         console.log('Correct answer');
       }
+
     } else {
       console.log('Wrong answer');
     }
@@ -163,6 +173,9 @@ const SnakeAndLadder = () => {
           <QA question={question} options={option} onSelectOption={setSelectedOption}/>
           <p>You are On Level: {selectedCell}</p>
           <button onClick={handleSubmit}>Submit</button>
+           {submitButton === 1 ? (
+      <button onClick={() => handleCellClick(selectedCell+1)}>Continue</button>
+    ) : null}
         </div>
       ) : (
         <div>
