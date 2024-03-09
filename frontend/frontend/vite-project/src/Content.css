@@ -22,6 +22,10 @@
     animation-fill-mode: forwards;
   }
   
+  h5{
+    color: white;
+  }
+
   @keyframes fillProgress {
     0% {
       width: 0;
