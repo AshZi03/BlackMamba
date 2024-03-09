@@ -70,6 +70,7 @@ const MainPage = () => {
           ) : selectedOption === 'About us' ? (
             <AboutUs/>
           )  : (
+            
             <Instruction/>
           )}
 
