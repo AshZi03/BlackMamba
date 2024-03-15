@@ -17,6 +17,7 @@ const SnakeAndLadder = () => {
   const navigate = useNavigate();
   
    useEffect(() => {
+    setSubmitButton(0);
     // Fetch the language value from localStorage when the component mounts
     const storedLanguage = localStorage.getItem('Language');
     setLanguage(storedLanguage);
@@ -59,6 +60,8 @@ const SnakeAndLadder = () => {
   }, [currentQuestionIndex]);
 
   const handleCellClick = async (id) => {
+    setcurrentQuestionIndex(0);
+    setSubmitButton(0);
     setSelectedCell(id);
 
     try {
@@ -107,14 +110,15 @@ const SnakeAndLadder = () => {
   }, [selectedOption]);
 
   const handleSubmit = async () => {
-    if (selectedOption === answer) {
+   if (selectedOption === answer) {
       console.log(currentQuestionIndex);
       console.log(length);
+      setSubmitButton(1);
       if (currentQuestionIndex === length-1) {
-        setSubmitButton(1);
+        
         console.log('this code executed');
         try {
-          const url = 'http://localhost:8081/PostLevel'; // Replace with your backend endpoint
+          const url = 'http://localhost:8081/PostLevel';
           const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -126,15 +130,15 @@ const SnakeAndLadder = () => {
               // Add other parameters if needed
             }),
           });
-          
+        
           
         } catch (error) {
           console.error('Error sending POST request to backend:', error.message);
         }
-        setSubmitButton(0);
+        
       } else {
-        setSubmitButton(0)
         setcurrentQuestionIndex(prevIndex => prevIndex + 1);
+        setSubmitButton(0)
         console.log('Correct answer');
       }
 
