@@ -23,7 +23,7 @@ const QA = ({ question, options,  onSelectOption}) => {
         </div>
 
         <div className="form-group">
-          <label>Choose an Answer:</label>
+          
           <div className="btn-group" role="group" aria-label="Options">
             {words.map((word, index) => {
               return (

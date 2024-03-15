@@ -21,3 +21,28 @@
   font-weight: bold;
   font-size: 14px;
 }
+.form-group{
+  color: white;
+  font-size: 30px;
+  font-family: 'Poppins';
+}
+button.btn.btn-secondary {
+  margin: 30px;
+ width: 120px;
+ background-color: #0d6f92;
+}
+button.btn.btn-secondary:hover{
+  background-color: #085672;
+}
+
+button {
+  background-color: #0d9250;
+  margin: 30px;
+  width: 120px;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+button:hover{
+  background-color: #0a6d3c;
+}
