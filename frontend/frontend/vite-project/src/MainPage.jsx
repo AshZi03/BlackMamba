@@ -77,7 +77,7 @@ const MainPage = () => {
         </Col>
         <Col  md={3} style={{ padding: '0px', borderLeft: '1px solid #ddd' }}>
           {/* Empty Third Column */}
-          <Content loader1Progress={3} loader2Progress={3} />
+          <Content loader1Progress={1} loader2Progress={3} />
         </Col>
       </Row>
     </Container>

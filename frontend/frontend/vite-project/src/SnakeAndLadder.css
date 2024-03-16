@@ -1,15 +1,17 @@
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(10, 0fr); /* Adjust the number of columns as needed */
-  
-  }
+  grid-template-columns: repeat(10, 0fr);
+  /* Adjust the number of columns as needed */
+
+}
 
 .grid-cell {
   text-align: center;
-  height:76px ;
+  height: 76px;
   width: 72px;
   position: relative;
 }
+
 .level-number {
   position: absolute;
   top: 50%;
@@ -21,21 +23,24 @@
   font-weight: bold;
   font-size: 14px;
 }
-.form-group{
+
+.form-group {
   color: white;
   font-size: 30px;
   font-family: 'Poppins';
 }
+
 button.btn.btn-secondary {
   margin: 30px;
- width: 120px;
- background-color: #0d6f92;
+  width: 120px;
+  background-color: #0d6f92;
 }
-button.btn.btn-secondary:hover{
+
+button.btn.btn-secondary:hover {
   background-color: #085672;
 }
 
-button {
+button.Submit-Button {
   background-color: #0d9250;
   margin: 30px;
   width: 120px;
@@ -43,6 +48,8 @@ button {
   border-radius: 10px;
   padding: 10px;
 }
-button:hover{
+
+
+button.Submit-Button {
   background-color: #0a6d3c;
 }

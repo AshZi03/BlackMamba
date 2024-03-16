@@ -176,7 +176,7 @@ const SnakeAndLadder = () => {
         <div>
           <QA question={question} options={option} onSelectOption={setSelectedOption}/>
           <p>You are On Level: {selectedCell}</p>
-          <button onClick={handleSubmit}>Submit</button>
+          <button className= "Submit-Button" onClick={handleSubmit}>Submit</button>
            {submitButton === 1 ? (
       <button onClick={() => handleCellClick(selectedCell+1)}>Continue</button>
     ) : null}
