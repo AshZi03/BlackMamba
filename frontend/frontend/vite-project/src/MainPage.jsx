@@ -10,7 +10,7 @@ import Login from './Login';
 import Alphabets from './Alphabets';
 import AboutUs from './AboutUs';
 import './MainPage.css';
-import Instruction from './Instruction.jsx'
+import Instruction from './Instruction.jsx';
 
 const MainPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -20,13 +20,22 @@ const MainPage = () => {
   const userId = localStorage.getItem('userid');
 
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
+    console.log('Option clicked:', option);
+    if (option === 'Log Out') {
+      // Perform logout actions
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('email');
+      localStorage.removeItem('userid');
+      navigate('/Login');
+    } else {
+      setSelectedOption(option);
+    }
   };
 
-  
+  console.log('isLoggedIn:', isLoggedIn);
 
   return (
-    <Container className='cont  ' fluid style={{ border: '1px solid #ddd', minHeight: '100vh' }}>
+    <Container className='cont' fluid style={{ border: '1px solid #ddd', minHeight: '100vh' }}>
       <Row style={{ borderBottom: '1px solid ', padding: '10px' }}>
         <Col md={12}>
           <NavBar />
@@ -56,7 +65,9 @@ const MainPage = () => {
               <Dropdown.Item onClick={() => handleOptionClick('About us')}>
                 About us
               </Dropdown.Item>
-              {/* Add more items as needed */}
+              <Dropdown.Item onClick={() => handleOptionClick('Log Out')}>
+                Logout 
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -69,11 +80,11 @@ const MainPage = () => {
             <div>In Setting</div>
           ) : selectedOption === 'About us' ? (
             <AboutUs/>
-          )  : (
-            
+          )  : selectedOption === 'Log Out' ? (
+            <div>Logging out...</div>
+          ) : (
             <Instruction/>
           )}
-
         </Col>
         <Col  md={3} style={{ padding: '0px', borderLeft: '1px solid #ddd' }}>
           {/* Empty Third Column */}

@@ -30,15 +30,7 @@
   font-family: 'Poppins';
 }
 
-button.btn.btn-secondary {
-  margin: 30px;
-  width: 120px;
-  background-color: #0d6f92;
-}
 
-button.btn.btn-secondary:hover {
-  background-color: #085672;
-}
 
 button.Submit-Button {
   background-color: #0d9250;
@@ -52,4 +44,16 @@ button.Submit-Button {
 
 button.Submit-Button {
   background-color: #0a6d3c;
+}
+button.btn.Non-Selected-Button {
+  width: 120px;
+  margin-right: 30px ;
+  color:white;
+  background-color: blueviolet;
+}
+button.btn.Selected-Button {
+  width: 120px;
+  margin-right: 30px;
+  color: white;
+  background-color: royalblue;
 }

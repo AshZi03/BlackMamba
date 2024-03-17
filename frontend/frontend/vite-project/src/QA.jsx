@@ -30,7 +30,7 @@ const QA = ({ question, options,  onSelectOption}) => {
                 <button
                   key={index}
                   type="button"
-                  className={`btn ${selectedOption === word ? 'btn-primary' : 'btn-secondary'}`}
+                  className={`btn ${selectedOption === word ? 'Selected-Button' : 'Non-Selected-Button'}`}
                   onClick={() => handleOptionChange(word)}
                 >
                   {word}

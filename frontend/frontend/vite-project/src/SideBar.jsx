@@ -1,5 +1,3 @@
-// Sidebar.js
-
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +6,6 @@ const Sidebar = ({ onOptionClick }) => {
   const navigate = useNavigate();
 
   const Logout = async () => {
-
     try {
       const response = await fetch('http://localhost:8081/logout', {
         method: 'POST',
@@ -42,7 +39,7 @@ const Sidebar = ({ onOptionClick }) => {
   return (
     <Nav defaultActiveKey="/home" className="flex-column">
       {options.map((option, index) => (
-        <Nav.Link key={index} onClick={option === 'Log Out' ? Logout : () => onOptionClick(option)}>
+        <Nav.Link key={index} onClick={option === 'Log Out' ? () => Logout() : () => onOptionClick(option)}>
           {option}
         </Nav.Link>
       ))}
