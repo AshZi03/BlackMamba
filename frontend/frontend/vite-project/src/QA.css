@@ -5,11 +5,3 @@ button{
 label{
     color: white;
 }
-button.btn.Non-Selected-Button {
-    color:white;
-    background-color: blueviolet;
-}
-button.btn.Selected-Button {
-    color: white;
-    background-color: blueviolet;
-}

@@ -13,7 +13,7 @@ const SnakeAndLadder = () => {
   const userId = localStorage.getItem('userid');
   const [length, setLength] = React.useState(0);
   const [submitButton, setSubmitButton] = useState(null); // State to store selected option
- 
+  const [count, setCount] = useState(0);
   const navigate = useNavigate();
   
    useEffect(() => {
@@ -26,6 +26,7 @@ const SnakeAndLadder = () => {
 
   useEffect(() => {
     if (currentQuestionIndex !== null) {
+      console.log(currentQuestionIndex);  
       const fetchData = async () => {
         try {
           const url = 'http://localhost:8081/Questions'; // Replace this with your backend endpoint
@@ -42,6 +43,7 @@ const SnakeAndLadder = () => {
           });
   
           const data = await response.json();
+          console.log(data);
           setQuestion(data.data[currentQuestionIndex].question_content);
           setOption(data.data[currentQuestionIndex].question_option);
           setAnswer(data.data[currentQuestionIndex].question_answer);
@@ -57,7 +59,8 @@ const SnakeAndLadder = () => {
   
       fetchData();
     }
-  }, [currentQuestionIndex]);
+  }, [currentQuestionIndex, selectedCell, language]); // Include selectedCell as a dependency
+  
 
   const handleCellClick = async (id) => {
     setcurrentQuestionIndex(0);
@@ -87,8 +90,7 @@ const SnakeAndLadder = () => {
             setQuestion(data.data[currentQuestionIndex].question_content);
             setOption(data.data[currentQuestionIndex].question_option);
             setAnswer(data.data[currentQuestionIndex].question_answer);
-            console.log('Data sent to backend successfully');
-          } else {
+            } else {
             console.log('currentQuestionIndex out of bounds:', currentQuestionIndex);
           }
         } else {
@@ -110,13 +112,35 @@ const SnakeAndLadder = () => {
   }, [selectedOption]);
 
   const handleSubmit = async () => {
-   if (selectedOption === answer) {
+    if (selectedOption === answer) {
       console.log(currentQuestionIndex);
       console.log(length);
       setSubmitButton(1);
-      if (currentQuestionIndex === length-1) {
-        
+      if (currentQuestionIndex === length - 1) {
         console.log('this code executed');
+        if(selectedCell == 30 && count<2 )
+        {
+            setSubmitButton(0);
+            setSelectedCell(selectedCell + 1);
+            setcurrentQuestionIndex(0);
+            setCount(0);
+        }
+
+        if(selectedCell == 5 && count<2 )
+        {
+            setSubmitButton(0);
+            setSelectedCell(selectedCell + 21);
+            setcurrentQuestionIndex(0);
+            setCount(0);
+        }
+        if(selectedCell == 9 && count<2 )
+        {
+            setSubmitButton(0);
+            setSelectedCell(selectedCell + 21);
+            setcurrentQuestionIndex(0);
+            setCount(0);
+        }
+
         try {
           const url = 'http://localhost:8081/PostLevel';
           const response = await fetch(url, {
@@ -125,28 +149,54 @@ const SnakeAndLadder = () => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              level: selectedCell+1,
+              level: selectedCell + 1,
               userid: userId,
               // Add other parameters if needed
             }),
           });
         
-          
         } catch (error) {
           console.error('Error sending POST request to backend:', error.message);
         }
-        
       } else {
+        const audio = new Audio('/public/correct.mp3');
+        audio.play();
         setcurrentQuestionIndex(prevIndex => prevIndex + 1);
-        setSubmitButton(0)
+        setSubmitButton(0);
         console.log('Correct answer');
+        
       }
-
     } else {
       console.log('Wrong answer');
+      const audio = new Audio('/public/incorrect.mp3');
+        audio.play();
+      if (selectedCell === 5) {
+        setCount(count + 1);
+        console.log(count);
+        if (count > 2) {
+          setSelectedCell(selectedCell + 1);
+          setcurrentQuestionIndex(0);
+        } 
+      }
+      if (selectedCell === 9) {
+        setCount(count + 1);
+        console.log(count);
+        if (count > 2) {
+          setSelectedCell(selectedCell + 1);
+          setcurrentQuestionIndex(0);
+        } 
+      }
+      if (selectedCell === 31) {
+        setCount(count + 1);
+        console.log(count);
+        if (count > 2) {
+          setSelectedCell(selectedCell - 18);
+          setcurrentQuestionIndex(0);
+        } 
+      }
     }
   };
-  
+   
 
 
   // Render grid cells
