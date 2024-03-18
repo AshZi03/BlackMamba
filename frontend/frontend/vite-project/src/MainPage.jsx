@@ -3,7 +3,6 @@ import { Container, Row, Col, Dropdown } from 'react-bootstrap';
 import Sidebar from './SideBar';
 import Content from './Content';
 import NavBar from './Navbar'; // Assuming you have a TopBar component
-import Home from './Home';
 import SnakeAndLadder from './SnakeAndLadder';
 import { useNavigate } from 'react-router-dom';
 import Login from './Login';
