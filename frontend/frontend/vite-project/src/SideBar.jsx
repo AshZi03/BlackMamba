@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import './SideBar.css';
 
 const Sidebar = ({ onOptionClick }) => {
   const navigate = useNavigate();
+  const [clickedOption, setClickedOption] = useState(null);
 
   const Logout = async () => {
     try {
@@ -34,12 +36,26 @@ const Sidebar = ({ onOptionClick }) => {
     }
   };
 
+  const handleOptionClick = (option) => {
+    setClickedOption(option);
+    if (option === 'Log Out') {
+      Logout();
+    } else {
+      onOptionClick(option);
+    }
+  };
+
   const options = ['Home', 'Alphabets', 'Setting', 'About us', 'Log Out'];
 
   return (
-    <Nav defaultActiveKey="/home" className="flex-column">
+    <Nav defaultActiveKey="/home" className="home flex-column">
       {options.map((option, index) => (
-        <Nav.Link key={index} onClick={option === 'Log Out' ? () => Logout() : () => onOptionClick(option)}>
+        <Nav.Link
+          key={index}
+          className={`nav-link${option === clickedOption ? ' clicked' : ''}${option === 'Log Out' ? 'nav-link logout' : ''}`}
+          onClick={() => handleOptionClick(option)}
+          data-text={option}
+        >
           {option}
         </Nav.Link>
       ))}

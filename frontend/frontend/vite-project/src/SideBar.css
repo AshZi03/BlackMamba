@@ -1,0 +1,75 @@
+/* SideBar.css */
+
+/* Sidebar container */
+.home {
+    /* Set background color */
+    padding: 20px; /* Add padding */
+    border-radius: 8px; /* Add border radius */
+  }
+  
+  /* Sidebar link styles */
+  a.nav-link {
+    color: #343a40; /* Set link color */
+    padding: 10px 0; /* Add padding */
+    font-size: 18px; /* Set font size */
+    transition: all 0.3s ease; /* Add transition effect */
+     /* Add position relative for ::before pseudo-element positioning */
+  }
+  
+  a.nav-link::before{
+    content: attr(data-text); /* Get the text from data-text attribute */
+    position: absolute;
+    width: 0%;
+    height: 3%;
+    overflow: hidden;
+    color: #ffe600;
+    border-right: 1px solid #ffe600;
+    transition: width 1s ease, filter 1s ease; /* Add transition properties */
+    pointer-events: none; /* Ensure the pseudo-element doesn't interfere with mouse events */
+  }
+
+  a.nav-link:hover::before{
+    width: 7%; /* Increase width on hover */
+    filter: drop-shadow(0 0 25px #ffe600); /* Add drop shadow on hover */
+  }
+  
+  a.nav-link:hover {
+    color: #ffe600; /* Change link color on hover */
+  }
+  
+  /* Active link style */
+  a.nav-link.active {
+    font-weight: bold; /* Set font weight */
+    color: #07f8ec; /* Set active link color */
+  }
+  
+  /* Logout link style */
+  a.nav-link.logout {
+    color: #343a40; /* Set logout link color */
+  }
+  
+  a.nav-link.logout::before {
+    /* Set logout link color */
+    content: attr(data-text); /* Get the text from data-text attribute */
+    position: absolute;
+    width: 0%;
+    height: 3%;
+    overflow: hidden;
+    color: #ff0000;
+    border-right: 1px solid #ff0000;
+    transition: width 1s ease; /* Add transition property */
+    pointer-events: none; /* Ensure the pseudo-element doesn't interfere with mouse events */
+}
+  
+a.nav-link.logout:hover::before{
+    width: 7%; /* Increase width on hover */
+}
+  
+a.nav-link.logout:hover {
+    color: #ea1313; /* Change logout link color on hover */
+}
+
+a.nav-link.clicked {
+  color: #ff8c00; /* Change color of clicked link */
+  font-weight: bold;
+}
