@@ -12,11 +12,9 @@ import './MainPage.css';
 import Instruction from './Instruction.jsx';
 
 const MainPage = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [option1, setOption1] = useState(0);
+  const [option2, setOption2] = useState(0);
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
-  const email = localStorage.getItem('email');
-  const userId = localStorage.getItem('userid');
 
   const handleOptionClick = (option) => {
     console.log('Option clicked:', option);
@@ -26,12 +24,8 @@ const MainPage = () => {
       localStorage.removeItem('email');
       localStorage.removeItem('userid');
       navigate('/Login');
-    } else {
-      setSelectedOption(option);
     }
   };
-
-  console.log('isLoggedIn:', isLoggedIn);
 
   return (
     <Container className='cont' fluid style={{ border: '1px solid #ddd', minHeight: '100vh' }}>
@@ -48,7 +42,7 @@ const MainPage = () => {
         {/* Dropdown for smaller screens */}
         <Col xs={12} sm={12} md={6} lg={6} xl={6} style={{ padding: '10px' }}>
           <Dropdown className="d-md-none">
-            <Dropdown.Toggle variant="success" id="dropdown-basic" >
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
               Menu
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -65,29 +59,17 @@ const MainPage = () => {
                 About us
               </Dropdown.Item>
               <Dropdown.Item onClick={() => handleOptionClick('Log Out')}>
-                Logout 
+                Logout
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
           {/* Conditionally render Content based on the selected option */}
-          {selectedOption === 'Home' ? (
-            <SnakeAndLadder />
-          ) : selectedOption === 'Alphabets' ? (
-            <Alphabets />
-          ) : selectedOption === 'Setting' ? (
-            <div>In Setting</div>
-          ) : selectedOption === 'About us' ? (
-            <AboutUs/>
-          )  : selectedOption === 'Log Out' ? (
-            <div>Logging out...</div>
-          ) : (
-            <Instruction/>
-          )}
+          <SnakeAndLadder loader1Progress={option1} loader2Progress={option2} setOption1={setOption1} setOption2={setOption2} />
         </Col>
-        <Col  md={3} style={{ padding: '0px', borderLeft: '1px solid #ddd' }}>
+        <Col md={3} style={{ padding: '0px', borderLeft: '1px solid #ddd' }}>
           {/* Empty Third Column */}
-          <Content loader1Progress={1} loader2Progress={3} />
+          <Content loader1Progress={option1} loader2Progress={option2} />
         </Col>
       </Row>
     </Container>

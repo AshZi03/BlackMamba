@@ -6,10 +6,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './NavBar.css';
 
+
 function NavBar() {
+  const name = localStorage.getItem('name');
+console.log(name);
   // Fetch user data from your data source (e.g., localStorage)
   const profileImg = "./img/jungle.png"; // Update with your actual default profile image path
-  const userName = "John Doe"; // Update with the user's name fetched from your data source
+  const userName = name // Update with the user's name fetched from your data source
 
   return (
     <Navbar className='w-auto p-1 navbar' style={{ marginTop: '0' }} bg="white" variant="light" expand="lg">

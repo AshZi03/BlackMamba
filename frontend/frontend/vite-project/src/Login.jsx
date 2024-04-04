@@ -34,6 +34,7 @@ function Login() {
                if (data.isLoggedIn) {
               localStorage.setItem('isLoggedIn', 'true');
               localStorage.setItem('email', `${data.email}`)
+              localStorage.setItem('name', `${data.name}`)
               localStorage.setItem('userid', `${data.user_id}`)
             if(data.userLang === null || data.userLang == 0)
             {
