@@ -102,7 +102,7 @@ const QA = ({ question, options, onSelectOption }) => {
     return (
       <div className="central-box" >
         <div className="form-group">
-          <label htmlFor="textArea">Question:</label>
+          <label htmlFor="textArea" className='Qlabel'>Question:</label>
           <p>{question}</p>
         </div>
 
