@@ -92,10 +92,10 @@ app.post('/login', async (req, res) => {
           const match = await bcrypt.compare(password, results[0].password);
           if (match) {
             req.session.isLoggedIn = true;
-            req.session.username = results[0].username;
+            req.session.name = results[0].username;
             req.session.email = results[0].email;
             req.session.userid = results[0].userid;
-            res.status(200).json({ success: true, message: 'Login successful', email: req.session.email, isLoggedIn: req.session.isLoggedIn, user_id: req.session.userid, userLang: results[0].user_lang });
+            res.status(200).json({ success: true, message: 'Login successful', email: req.session.email, isLoggedIn: req.session.isLoggedIn, user_id: req.session.userid, userLang: results[0].user_lang, name: req.session.name });
           } else {
             res.status(401).json({ success: false, message: 'Invalid password' });
           }
