@@ -20,6 +20,7 @@ const LangSelect = () => {
 
   const handleLangSelect = async (lang) => {
     setSelectedLang(lang); 
+    localStorage.setItem('Language',2);
     try {
       const url = 'http://localhost:8081/LanguageSelector';
     
@@ -54,12 +55,12 @@ const LangSelect = () => {
       <div className="row">
         <div className="col-md-4 mb-3">
           <div
-            className={`card2 ${selectedLang === 'English' ? 'border-primary' : ''}`}
-            onClick={() => handleLangSelect('English')}
+            className={`card2 ${selectedLang === 'Marathi' ? 'border-primary' : ''}`}
+            onClick={() => handleLangSelect('Marathi')}
           >
             <div className="card-body">
-              <h5 className="card-title">English</h5>
-              <p className="card-text">Learn English</p>
+              <h5 className="card-title">Marathi</h5>
+              <p className="card-text">Marathi</p>
             </div>
           </div>
         </div>

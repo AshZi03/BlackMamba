@@ -128,6 +128,9 @@ app.post('/LanguageSelector', async (req, res) => {
   if (selectedLang === 'Japanese') {
     Langno = 1;
   }
+  else if(selectedLang === 'Marathi'){
+    Langno = 2;
+  }
 
 
   // Update user's language in the database
@@ -152,14 +155,23 @@ app.post('/Questions', async (req, res) => {
     return res.status(400).json({ success: false, message: 'ID and selected language are required' });
   }
   console.log(id);
-  console.log(language);
+  console.log(language,'this is language');
   // Query to select questions based on level_lang and level_number
   const query = `
-    SELECT l.level_number, l.level_lang, q.question_id, q.question_content, q.question_answer, q.question_option, q.question_type
-    FROM level_table l
-    JOIN question_table q ON l.level_id = q.question_level
-    WHERE l.level_number = ?
-    AND l.level_lang = ?;
+    SELECT
+    q.question_id,
+    q.question_content,
+    q.question_answer,
+    q.question_type,
+    q.question_option,
+    q.question_level,
+    q.question_language
+  FROM
+    question_table q
+  WHERE
+    q.question_level = ? -- Use the provided level number
+    AND q.question_language = ?; -- Use the provided language
+
     
     `;
 

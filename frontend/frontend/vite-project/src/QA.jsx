@@ -14,11 +14,30 @@ const QA = ({ question, options, onSelectOption }) => {
   };
 
   // Function to speak a word
-  const speak = (word, lang = "ja-JP") => {
+  const speak = (word) => {
+    const languageCode = localStorage.getItem('Language');
+    let lang;
+    
+    switch (languageCode) {
+      case '1':
+        lang = 'ja-JP'; // Japanese
+        break;
+      case '2':
+        lang = 'mr-IN'; // Marathi
+        break;
+      // ... other cases
+      default:
+        lang = 'en-US'; // Default to English
+    }
+    
     const utterance = new SpeechSynthesisUtterance(word);
     utterance.lang = lang;
+  
+    // Add a console log here to check the language value
+    console.log(`Speaking word: ${word} in language: ${lang}`);
     window.speechSynthesis.speak(utterance);
   };
+  
 
   // Function to translate text
   const translateText = async (text, sourceLang, targetLang) => {
@@ -41,13 +60,25 @@ const QA = ({ question, options, onSelectOption }) => {
   const handleMouseOver = async (event, word) => {
     if (requestCount < 3) {
       setRequestCount(requestCount + 1);
-      const translatedText = await translateText(word, 'ja', 'en');
+      const language = localStorage.getItem('Language');
+      const getLanguageName = (code) => {
+        switch (code) {
+          case '1':
+            return 'Japanese';
+          case '2':
+            return 'Marathi';
+          // Add more cases for other language codes as needed
+          default:
+            return 'Unknown'; // Default to 'Unknown' if the code is not recognized
+        }
+      };
+      const languageName = getLanguageName(language);
+      const translatedText = await translateText(word, languageName, 'en');
       setTooltipText(translatedText);
       const rect = event.target.getBoundingClientRect();
       setTooltipPosition({ top: rect.bottom, left: rect.left });
     }
   };
-
   // Handle mouse out event
   const handleMouseOut = () => {
     setTooltipText('');

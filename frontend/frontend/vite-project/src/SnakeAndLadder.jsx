@@ -113,6 +113,8 @@ const SnakeAndLadder = () => {
 
   const handleSubmit = async () => {
     if (selectedOption === answer) {
+      console.log(selectedOption);
+      console.log(answer);
       console.log(currentQuestionIndex);
       console.log(length);
       setSubmitButton(1);
