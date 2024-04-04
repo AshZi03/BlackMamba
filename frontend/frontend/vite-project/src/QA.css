@@ -1,7 +1,8 @@
-button{
-    padding-left: 500px;
-}
-
 label{
     color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 145px;
+}
+p{
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }

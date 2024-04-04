@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './QA.css';
 
 const QA = ({ question, options, onSelectOption }) => {
   const [selectedOption, setSelectedOption] = useState('');
