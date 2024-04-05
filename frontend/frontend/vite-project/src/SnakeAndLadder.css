@@ -6,6 +6,7 @@
 }
 
 .grid-cell {
+  cursor: pointer;
   text-align: center;
   height: 76px;
   width: 72px;
@@ -142,4 +143,12 @@ button.btn.Selected-Button {
   border-radius: 4px;
   font-size: 14px;
   z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.levelno{
+  color: #fff;
+  margin-top: 40px;
+  font-size: large;
+  font-weight: 400;
+  font-family: 'Times New Roman', Times, serif;
 }

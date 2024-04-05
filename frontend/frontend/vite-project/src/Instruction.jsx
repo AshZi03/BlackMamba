@@ -5,7 +5,7 @@ const Instruction= () =>{
 return(
     <>
         <div className="Head">
-            <h3>Welcome to New Way of Learning Foriegn Languages </h3>
+            <h3>Welcome to New Way of Learning Foriegn Languages</h3>
         </div>
         <div className="inst">
 

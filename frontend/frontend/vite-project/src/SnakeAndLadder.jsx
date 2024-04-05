@@ -217,7 +217,7 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
       {selectedCell && question && option ? (
         <div>
           <QA question={question} options={option} onSelectOption={setSelectedOption} />
-          <p>You are On Level: {selectedCell}</p>
+          <p className='levelno'> You are On Level: {selectedCell}</p>
           <button className="Submit-Button" onClick={handleSubmit}>
             <span className='btn-cont'>Submit</span>
           </button>
