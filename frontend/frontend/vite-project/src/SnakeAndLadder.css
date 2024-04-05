@@ -86,11 +86,27 @@ button.btn.Non-Selected-Button {
   color:white;
   background-color: blueviolet;
 }
+button.btn.Non-Selected-Button:hover {
+  width: 120px;
+  margin-right: 30px ;
+  color:white;
+  background: linear-gradient(
+    82.3deg,
+    rgba(150, 93, 233, 1) 10.8%,
+    rgba(99, 88, 238, 1) 94.3%
+  );
+  transition:all 2s ease-in-out ; 
+  transition-delay: 1s;
+}
 button.btn.Selected-Button {
   width: 120px;
   margin-right: 30px;
   color: white;
-  background-color: royalblue;
+  background: radial-gradient(
+    circle at -0.2% 48.9%,
+    rgba(32, 233, 104) 0%,
+    rgba(13, 167, 236) 99.38%
+  );
 }
 
 @media (max-width: 768px) {

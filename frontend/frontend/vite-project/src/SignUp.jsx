@@ -58,34 +58,34 @@ function SignUp() {
                 <input
                   type="text"  // Change the type to "text" for username
                   name="username"
-                  required=""
+                  required="Enter username"
+                  placeholder='username'
                   onChange={(e) => {
                     setUsername(e.target.value);
                   }}
                 />
-                <label>Username</label>
               </div>
               <div className="user-box">
                 <input
                   type="email"
                   name="email"
-                  required=""
+                  placeholder='Email'
+                  required="Enter valid Email"
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
                 />
-                <label>Email</label>
               </div>
               <div className="user-box">
                 <input
                   type="password"
                   name="password"
-                  required=""
+                  placeholder='password'
+                  required="Enter Password"
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
                 />
-                <label>Password</label>
               </div>
               <center>
                 <button className="login-btn" type="submit">

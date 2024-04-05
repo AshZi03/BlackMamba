@@ -13,7 +13,8 @@
     padding: 10px 0; /* Add padding */
     font-size: 18px; /* Set font size */
     transition: all 0.3s ease; /* Add transition effect */
-     /* Add position relative for ::before pseudo-element positioning */
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    /* Add position relative for ::before pseudo-element positioning */
   }
   
   a.nav-link::before{

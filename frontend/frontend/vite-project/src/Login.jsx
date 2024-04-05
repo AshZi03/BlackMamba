@@ -4,6 +4,21 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import TopBar from './TopBar';
 
+function handleInputChange(event) {
+  const input = event.target;
+  const label = input.previousElementSibling;
+
+  if (input.value.trim() !== '') {
+    label.style.top = '-20px'; // Adjust top position when input has content
+    label.style.fontSize = '12px';
+    label.style.color = '#bdb8b8';
+  } else {
+    label.style.top = '10px'; // Revert to initial top position when input is empty
+    label.style.fontSize = '16px';
+    label.style.color = '#fff';
+  }
+}
+
 
 function Login() {
     const [password, setPassword] = useState('');
@@ -54,6 +69,7 @@ function Login() {
             console.log(` Login  successful`);
           } else {
             // Handle registration or login failure, show an error message or take appropriate action
+            
             console.log(`Login failed:`, data.message);
             setHandledErrors(data.message);
           }
@@ -78,23 +94,25 @@ function Login() {
           <input
             type="email"
             name="email"
-            required=""
+            placeholder='Email'
+            required="Enter Valid Email"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            
           />
-          <label>Email</label>
         </div>
         <div className="user-box">
           <input
             type="password"
             name="password"
             required=""
+            placeholder='Password'
             onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
-          <label>Password</label>
+          
         </div>
         <center>
           <button className="login-btn" type="submit">
