@@ -188,32 +188,35 @@ app.post('/Questions', async (req, res) => {
   });
 });
 
-app.post('/PostLevel', async (req, res) => {
-  const { level, userid } = req.body;
-  console.log(level);
-  console.log(userid);
-  // Query to select questions based on level_lang and level_number
-  const query = `
-    UPDATE users 
-    SET user_exp = user_exp + 10,
-    user_level = ? 
-    WHERE userid = ?;
+  
+app.post('/alphabets', async (req, res) => {
+  try {
+    const { language } = req.body;
 
-    `;
-
-  // Execute the query with parameters
-  db.query(query, [level, userid], (err) => {
-    if (err) {
-      console.error('Error fetching questions:', err);
-      res.status(500).json({ success: false, message: 'Failed to fetch questions' });
-    } else {
-      console.log('Succesfully inserted the level');
-
-
+    if (!language) {
+      throw new Error('Missing language parameter');
     }
-  });
-});
 
+    const query = 'SELECT * FROM alphabhet_table WHERE Alphabhet_lang = ?';
+    
+    // Execute the query with parameters
+    db.query(query, [language], (err, rows) => {
+      if (err) {
+        console.error('Error fetching alphabets:', err);
+        res.status(500).json({ success: false, message: 'Failed to fetch alphabets' });
+      } else {
+        if (rows && rows.length > 0) {
+          res.json(rows); // Send the retrieved alphabets for the specified language as JSON
+        } else {
+          res.status(404).send('No alphabets found for the specified language');
+        }
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(400).send('Bad request: ' + error.message);
+  }  
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

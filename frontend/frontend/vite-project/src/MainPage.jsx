@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Dropdown } from 'react-bootstrap';
 import Sidebar from './SideBar';
 import Content from './Content';
@@ -10,13 +10,36 @@ import Alphabets from './Alphabets';
 import AboutUs from './AboutUs';
 import './MainPage.css';
 import Instruction from './Instruction.jsx';
-
 const MainPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [option1, setOption1] = useState(0);
   const [option2, setOption2] = useState(0);
+  const [alphabets, setAlphabets] = useState([]);
   const navigate = useNavigate();
+  const language = localStorage.getItem('Language');
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:8081/alphabets', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ language }),
+      });
 
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json(); // Await the response.json() call
+      setAlphabets(data);
+      
+      console.log('Response from server:', data);
+     
+    };
+
+    fetchData();
+  }, []);
   const handleOptionClick = (option) => {
     console.log('Option clicked:', option);
     if (option === 'Log Out') {
@@ -72,7 +95,12 @@ const MainPage = () => {
           {selectedOption === 'Home'?(
             <SnakeAndLadder loader1Progress={option1} loader2Progress={option2} setOption1={setOption1} setOption2={setOption2} />
           ): selectedOption  === 'Alphabets' ?(
-            <Alphabets/>
+            <>
+            {alphabets.map((alphabet) => (
+             
+              <Alphabets key={alphabet.Alphabhet_id} alphabet={alphabet.Alphabhet} reading={alphabet.Reading} />
+            ))}
+            </>
           ):selectedOption === 'Setting' ?(
             <div>In Setting</div>
           ):selectedOption === 'About us' ?(

@@ -119,8 +119,9 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
       console.log(length);
       setSubmitButton(1);
       if (currentQuestionIndex === length - 1) {
-        setOption1(loader1Progress + 1);
-        setOption2(loader2Progress + 2);
+        setOption1(Math.min(loader1Progress + 1, 5));
+        setOption2(Math.min(loader2Progress + 2, 5));
+        
         console.log('this code executed');
         if (selectedCell == 30 && count < 2) {
           setSubmitButton(0);
