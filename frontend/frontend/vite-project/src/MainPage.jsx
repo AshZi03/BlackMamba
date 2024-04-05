@@ -12,6 +12,7 @@ import './MainPage.css';
 import Instruction from './Instruction.jsx';
 
 const MainPage = () => {
+  const [selectedOption, setSelectedOption] = useState(null);
   const [option1, setOption1] = useState(0);
   const [option2, setOption2] = useState(0);
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ const MainPage = () => {
       localStorage.removeItem('email');
       localStorage.removeItem('userid');
       navigate('/Login');
+    }
+    else{
+      setSelectedOption(option);
     }
   };
 
@@ -65,7 +69,22 @@ const MainPage = () => {
           </Dropdown>
 
           {/* Conditionally render Content based on the selected option */}
-          <SnakeAndLadder loader1Progress={option1} loader2Progress={option2} setOption1={setOption1} setOption2={setOption2} />
+          {selectedOption === 'Home'?(
+            <SnakeAndLadder loader1Progress={option1} loader2Progress={option2} setOption1={setOption1} setOption2={setOption2} />
+          ): selectedOption  === 'Alphabets' ?(
+            <Alphabets/>
+          ):selectedOption === 'Setting' ?(
+            <div>In Setting</div>
+          ):selectedOption === 'About us' ?(
+            <AboutUs/>
+          ): selectedOption === 'Log Out'? (
+            <div>Logging Out...</div>
+          ):(
+             <Instruction/>
+          )
+
+          }
+          
         </Col>
         <Col md={3} style={{ padding: '0px', borderLeft: '1px solid #ddd' }}>
           {/* Empty Third Column */}
