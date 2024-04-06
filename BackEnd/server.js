@@ -131,8 +131,16 @@ app.post('/LanguageSelector', async (req, res) => {
   else if(selectedLang === 'Marathi'){
     Langno = 2;
   }
-
-
+  else if(selectedLang === 'German'){
+    Langno = 3;
+  }
+  else if(selectedLang === 'Sanskrit'){
+    Langno = 5;
+  }
+  else if(selectedLang === 'Hindi'){
+    Langno = 4;
+  }
+ 
   // Update user's language in the database
   db.query(
     'UPDATE users SET user_lang = ? WHERE userid = ?',
@@ -154,8 +162,8 @@ app.post('/Questions', async (req, res) => {
   if (!id || !language) {
     return res.status(400).json({ success: false, message: 'ID and selected language are required' });
   }
-  console.log(id);
-  console.log(language,'this is language');
+  console.log(language,'This is kazi language no');
+  console.log(id,'This is kazi user id');
   // Query to select questions based on level_lang and level_number
   const query = `
     SELECT

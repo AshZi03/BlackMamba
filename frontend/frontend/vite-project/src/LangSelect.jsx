@@ -19,11 +19,23 @@ const LangSelect = () => {
   }, []); // Empty dependency array to run the effect only once
 
   const handleLangSelect = async (lang) => {
-    setSelectedLang(lang); 
-    localStorage.setItem('Language',2);
+    setSelectedLang(lang); // Set the selected language first
+    console.log(lang); // Log the selected language directly
+  
+    // Set the language in localStorage based on the selected language
+    if (lang === 'Marathi') {
+      localStorage.setItem('Language', 2);
+    } else if (lang === 'Hindi') {
+      localStorage.setItem('Language', 4);
+    } else if (lang === 'German') {
+      localStorage.setItem('Language', 3);
+    } else if (lang === 'Sanskrit') {
+      localStorage.setItem('Language', 5);
+    }
+  
     try {
       const url = 'http://localhost:8081/LanguageSelector';
-    
+  
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -77,12 +89,34 @@ const LangSelect = () => {
         </div>
         <div className="col-md-4 mb-3">
           <div
-            className={`card2 ${selectedLang === 'French' ? 'border-primary' : ''}`}
-            onClick={() => handleLangSelect('French')}
+            className={`card2 ${selectedLang === 'German' ? 'border-primary' : ''}`}
+            onClick={() => handleLangSelect('German')}
           >
             <div className="card-body">
-              <h5 className="card-title">French</h5>
-              <p className="card-text">Learn French</p>
+              <h5 className="card-title">German</h5>
+              <p className="card-text">Learn German</p>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-4 mb-3">
+          <div
+            className={`card2 ${selectedLang === 'Sanskrit' ? 'border-primary' : ''}`}
+            onClick={() => handleLangSelect('Sanskrit')}
+          >
+            <div className="card-body">
+              <h5 className="card-title">Sanskrit</h5>
+              <p className="card-text">Learn Sankrit</p>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-4 mb-3">
+          <div
+            className={`card2 ${selectedLang === 'Hindi' ? 'border-primary' : ''}`}
+            onClick={() => handleLangSelect('Hindi')}
+          >
+            <div className="card-body">
+              <h5 className="card-title">Hindi</h5>
+              <p className="card-text">Learn Hindi</p>
             </div>
           </div>
         </div>

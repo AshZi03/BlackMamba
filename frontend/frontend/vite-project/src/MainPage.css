@@ -10,3 +10,7 @@
     background-size: 60px 60px;
     background-position: -5px -5px;
 }
+.alphacont{
+  display: flex;
+  flex: wrap ;
+}

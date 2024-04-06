@@ -19,8 +19,10 @@
   animation: fillProgress 6s ease-in-out forwards, lightEffect 6s ease-in-out forwards;
 }
 
-h5 {
+.colorlevel{
   color: white;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 20px;
 }
 
 @keyframes fillProgress {

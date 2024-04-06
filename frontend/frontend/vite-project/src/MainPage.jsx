@@ -95,12 +95,14 @@ const MainPage = () => {
           {selectedOption === 'Home'?(
             <SnakeAndLadder loader1Progress={option1} loader2Progress={option2} setOption1={setOption1} setOption2={setOption2} />
           ): selectedOption  === 'Alphabets' ?(
-            <>
+            <div className="alphacont">
+
             {alphabets.map((alphabet) => (
-             
               <Alphabets key={alphabet.Alphabhet_id} alphabet={alphabet.Alphabhet} reading={alphabet.Reading} />
+              
             ))}
-            </>
+            </div>
+            
           ):selectedOption === 'Setting' ?(
             <div>In Setting</div>
           ):selectedOption === 'About us' ?(

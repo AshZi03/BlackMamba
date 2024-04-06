@@ -73,4 +73,5 @@ a.nav-link.logout:hover {
 a.nav-link.clicked {
   color: #ff8c00; /* Change color of clicked link */
   font-weight: bold;
+  box-shadow: #ff8c00;
 }

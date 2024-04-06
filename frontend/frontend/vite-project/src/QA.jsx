@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './QA.css';
 
 const QA = ({ question, options, onSelectOption }) => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -38,7 +37,7 @@ const QA = ({ question, options, onSelectOption }) => {
     console.log(`Speaking word: ${word} in language: ${lang}`);
     window.speechSynthesis.speak(utterance);
   };
-  
+   
 
   // Function to translate text
   const translateText = async (text, sourceLang, targetLang) => {
@@ -68,12 +67,19 @@ const QA = ({ question, options, onSelectOption }) => {
             return 'Japanese';
           case '2':
             return 'Marathi';
+          case '4':
+            return 'Hindi';
+          case '3':
+            return 'German';
+          case '5':
+            return 'Sanskrit';
           // Add more cases for other language codes as needed
           default:
             return 'Unknown'; // Default to 'Unknown' if the code is not recognized
         }
       };
       const languageName = getLanguageName(language);
+      console.log(languageName);
       const translatedText = await translateText(word, languageName, 'en');
       setTooltipText(translatedText);
       const rect = event.target.getBoundingClientRect();
@@ -102,7 +108,7 @@ const QA = ({ question, options, onSelectOption }) => {
     return (
       <div className="central-box" >
         <div className="form-group">
-          <label htmlFor="textArea" className='Qlabel'>Question:</label>
+          <label htmlFor="textArea">Question:</label>
           <p>{question}</p>
         </div>
 
