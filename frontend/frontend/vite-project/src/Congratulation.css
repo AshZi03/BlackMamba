@@ -1,0 +1,65 @@
+
+/* Helpers */
+
+
+
+
+
+/* Global */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(https://dl.dropboxusercontent.com/s/v3m6p0p5kq6xzkz/100daysui_100bg.png) no-repeat, #303540;
+  background-size: cover;
+  background-color: transparent;
+}
+
+
+
+
+
+
+
+.box{
+  height: 375px;
+  width: 350px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #141313;
+}
+.congrats{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size:x-large;
+  margin-left: 80px;
+  color: #fff;
+}
+.message{
+  font-size: medium;
+  color: #fff;
+  margin-left: 30px;
+  font-family: Georgia, 'Times New Roman', Times, serif ;
+}
+
+
+@media (min-width: 456px) {
+  .modal-top {
+    padding: 69px 0 65px;
+  }
+
+  .modal-bottom {
+    padding: 30px 60px;
+  }
+
+  .modal-btn {
+    flex: 1;
+    margin: 0;
+    max-width: 190px;
+  }
+
+  .modal-btn:nth-of-type(2) {
+    margin-left: 30px;
+  }
+}

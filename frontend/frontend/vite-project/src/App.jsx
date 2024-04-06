@@ -14,6 +14,7 @@ import Alphabets from './Alphabets.jsx'
 import AboutUs from './AboutUs.jsx'
 import Instruction from './Instruction.jsx'
 import Content from './Content.jsx'
+import Congratulation from './Congratulation.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -33,6 +34,7 @@ function App() {
         <Route path= "/MainPage/AboutUs" element= {<AboutUs/>}/>
         <Route path="/Instruction" element={<Instruction />} />
         <Route path="/Content" element={<Content />} />
+        <Route path="/Congratulation" element={<Congratulation />} />
       </Routes>
     </BrowserRouter>
   </>
