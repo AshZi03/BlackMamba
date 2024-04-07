@@ -32,6 +32,9 @@ const LangSelect = () => {
     } else if (lang === 'Sanskrit') {
       localStorage.setItem('Language', 5);
     }
+    else if (lang === 'Japanese') {
+      localStorage.setItem('Language',1);
+    }
   
     try {
       const url = 'http://localhost:8081/LanguageSelector';
