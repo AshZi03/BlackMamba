@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import QA from './QA';
 import './SnakeAndLadder.css';
 import { NavLink, useNavigate } from 'react-router-dom';
-
+import CongratulationsModal from './Congratulation';
 const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOption2 }) => {
   const [selectedCell, setSelectedCell] = React.useState(null);
   const [language, setLanguage] = React.useState(null);
@@ -15,7 +15,12 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
   const [length, setLength] = React.useState(0);
   const [submitButton, setSubmitButton] = useState(null); // State to store selected option
   const [count, setCount] = useState(0);
+  const [userlevel, setUserlevel] = useState(1);
   const navigate = useNavigate();
+  const [showCongratulations, setShowCongratulations] = useState(false); // State to control the visibility of Congratulations component
+ 
+
+  
 
   useEffect(() => {
     setSubmitButton(0);
@@ -26,6 +31,41 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
     console.log(language);
   }, []); // Empty dependency array ensures that this effect runs only once after mount
 
+  useEffect(() => {
+    const fetchDataFromServer = async () => {
+      try {
+        const url = 'http://localhost:8081/current'; // Replace this with your backend endpoint
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user: userId
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+  
+        const data = await response.json();
+        setUserlevel(data);
+        console.log(setUserlevel);
+
+        // Process the fetched data here
+        console.log('Fetched data:', data);
+      } catch (error) {
+        // Handle errors here
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchDataFromServer(); // Call the fetchDataFromServer function
+  }, [selectedCell, userId]); // Include userId in the dependency array
+
+  
   useEffect(() => {
     if (currentQuestionIndex !== null) {
       console.log(currentQuestionIndex);
@@ -65,6 +105,7 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
 
   const handleCellClick = async (id) => {
     setcurrentQuestionIndex(0);
+    
     setSubmitButton(0);
     setSelectedCell(id);
 
@@ -119,6 +160,10 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
       console.log(length);
       setSubmitButton(1);
       if (currentQuestionIndex === length - 1) {
+        setShowCongratulations(true);
+    setTimeout(() => {
+      setShowCongratulations(false); // Hide Congratulations component after 4 seconds
+    }, 4000);
         setOption1(Math.min(loader1Progress + 1, 5));
         setOption2(Math.min(loader2Progress + 2, 5));
         
@@ -213,16 +258,23 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
   };
 
   // Render SnakeAndLadder component
+
   return (
     <div>
       {selectedCell && question && option ? (
         <div>
-          <QA question={question} options={option} onSelectOption={setSelectedOption} />
-          <p className='levelno'> You are On Level: {selectedCell}</p>
-          <button className="Submit-Button" onClick={handleSubmit}>
-            <span className='btn-cont'>Submit</span>
-          </button>
-          {submitButton === 1 ? <button className='Submit-Button' onClick={() => handleCellClick(selectedCell + 1)}><span className='btn-cont'>Continue</span></button> : null}
+          {!showCongratulations ? ( // Conditionally render Congratulations component
+            <div>
+              <QA question={question} options={option} onSelectOption={setSelectedOption} />
+              <p className='levelno'> You are On Level: {selectedCell}</p>
+              <button className="Submit-Button" onClick={handleSubmit}>
+                <span className='btn-cont'>Submit</span>
+              </button>
+              {submitButton === 1 ? <button className='Submit-Button' onClick={() => handleCellClick(selectedCell + 1)}><span className='btn-cont'>Continue</span></button> : null}
+            </div>
+          ) : (
+            <CongratulationsModal /> // Render Congratulations component
+          )}
         </div>
       ) : (
         <div>
@@ -233,5 +285,4 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
     </div>
   );
 };
-
 export default SnakeAndLadder;

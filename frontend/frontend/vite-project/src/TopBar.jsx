@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-
+const name = localStorage.getItem('name');
 function TopBar() {
 
   return (

@@ -226,6 +226,24 @@ app.post('/alphabets', async (req, res) => {
   }  
 });
 
+app.post('/current', async (req, res) => {
+  const { userId } = req.body;
+  const query = 'SELECT user_level FROM users WHERE userid = ?';
+  db.query(query, [userId], (err, rows) => {
+    if (err) {
+      console.error('Error fetching user level:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      if (rows.length > 0) {
+        const userLevel = rows[0].user_level;
+        res.status(200).json({ userLevel });
+      } else {
+        res.status(404).json({ error: 'User not found' });
+      }
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
