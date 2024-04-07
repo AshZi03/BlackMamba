@@ -7,7 +7,6 @@
 
 /* Global */
 .wrapper {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,6 +28,7 @@
   flex-wrap: wrap;
   align-items: center;
   background-color: #141313;
+ box-shadow: 10px 20px 100px;
 }
 .congrats{
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;

@@ -8,7 +8,7 @@ const Content = ({ loader1Progress, loader2Progress }) => {
         <>
             <h5 className='colorlevel'> Complete one level</h5>
             <div className="loaderBar" style={{ width: `${loader1Progress * 20}%` }}></div>
-            <h5 className='colorlevel'> Complete Three Task </h5>
+            <h5 className='colorlevel'> Complete Three Level </h5>
             <div className="loaderBar" style={{ width: `${loader2Progress * 20}%` }}></div>
         </>
     );
