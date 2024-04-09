@@ -19,7 +19,52 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
   const navigate = useNavigate();
   const [showCongratulations, setShowCongratulations] = useState(false); // State to control the visibility of Congratulations component
  
+  const getCurrentUserLevel = async (userId) => {
+    try {
+      const url = 'http://localhost:8081/GetCurrentLevel'; // Replace this with your backend endpoint
+  
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userid: userId,
+        }),
+      });
+  
+      const data = await response.json();
+     console.log(data.level[0].user_level,"trying");
+      if (data.success) {
+        return data.level[0].user_level;
+      } else {
+        console.log('Failed to fetch user level:', data.message);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching user level:', error.message);
+      return null;
+    }
+  };
+  useEffect(() => {
+    console.log(userlevel, "this is user level in front end");
+  }, [userlevel]);
 
+  useEffect(() => {
+    const userId = localStorage.getItem('userid');
+    if (userId) {
+      getCurrentUserLevel(userId)
+        .then((level) => {
+          if (level !== null) {
+            setUserlevel(level);
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching user level:', error);
+        });
+    }
+  }, []);
+  
   
 
   useEffect(() => {
@@ -31,39 +76,6 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
     console.log(language);
   }, []); // Empty dependency array ensures that this effect runs only once after mount
 
-  useEffect(() => {
-    const fetchDataFromServer = async () => {
-      try {
-        const url = 'http://localhost:8081/current'; // Replace this with your backend endpoint
-
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user: userId
-          }),
-        });
-  
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-  
-        const data = await response.json();
-        setUserlevel(data);
-        console.log(setUserlevel);
-
-        // Process the fetched data here
-        console.log('Fetched data:', data);
-      } catch (error) {
-        // Handle errors here
-        console.error('Error fetching data:', error);
-      }
-    };
-  
-    fetchDataFromServer(); // Call the fetchDataFromServer function
-  }, [selectedCell, userId]); // Include userId in the dependency array
 
   
   useEffect(() => {
@@ -104,11 +116,12 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
   }, [currentQuestionIndex, selectedCell, language]); // Include selectedCell as a dependency
 
   const handleCellClick = async (id) => {
-    setcurrentQuestionIndex(0);
-    
-    setSubmitButton(0);
+       if (id <= userlevel) {
     setSelectedCell(id);
-
+    // Rest of your code for fetching questions and handling clicks
+  }
+    setcurrentQuestionIndex(0);
+    setSubmitButton(0);
     try {
       const url = 'http://localhost:8081/Questions';
 
@@ -161,48 +174,56 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
       setSubmitButton(1);
       if (currentQuestionIndex === length - 1) {
         setShowCongratulations(true);
-    setTimeout(() => {
-      setShowCongratulations(false); // Hide Congratulations component after 4 seconds
-    }, 4000);
+        setTimeout(() => {
+          setShowCongratulations(false); // Hide Congratulations component after 4 seconds
+        }, 4000);
+        
         setOption1(Math.min(loader1Progress + 1, 5));
         setOption2(Math.min(loader2Progress + 2, 5));
         
         console.log('this code executed');
-        if (selectedCell == 30 && count < 2) {
+        
+        // Check if the currentCell is one of the special cells
+        if (selectedCell === 30 && count < 2) {
           setSubmitButton(0);
           setSelectedCell(selectedCell + 1);
           setcurrentQuestionIndex(0);
           setCount(0);
-        }
-
-        if (selectedCell == 5 && count < 2) {
+        } else if (selectedCell === 5 && count < 2) {
           setSubmitButton(0);
           setSelectedCell(selectedCell + 21);
           setcurrentQuestionIndex(0);
           setCount(0);
-        }
-        if (selectedCell == 9 && count < 2) {
+        } else if (selectedCell === 9 && count < 2) {
           setSubmitButton(0);
           setSelectedCell(selectedCell + 21);
           setcurrentQuestionIndex(0);
           setCount(0);
-        }
-
-        try {
-          const url = 'http://localhost:8081/PostLevel';
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              level: selectedCell + 1,
-              userid: userId,
-              // Add other parameters if needed
-            }),
-          });
-        } catch (error) {
-          console.error('Error sending POST request to backend:', error.message);
+        } else {
+          // Update userlevel state after successfully completing all questions
+          try {
+            const url = 'http://localhost:8081/PostLevel';
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                level: userlevel + 1,
+                userid: userId,
+                // Add other parameters if needed
+              }),
+            });
+  
+            // Update userlevel state if the POST request is successful
+            if (response.ok) {
+              setUserlevel(userlevel + 1);
+            } else {
+              console.error('Failed to update user level:', response.statusText);
+            }
+          } catch (error) {
+            console.error('Error sending POST request to backend:', error.message);
+          }
         }
       } else {
         const audio = new Audio('/public/correct.mp3');
@@ -215,48 +236,42 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
       console.log('Wrong answer');
       const audio = new Audio('/public/incorrect.mp3');
       audio.play();
-      if (selectedCell === 5) {
+      if (selectedCell === 5 || selectedCell === 9 || selectedCell === 31) {
         setCount(count + 1);
         console.log(count);
         if (count > 2) {
           setSelectedCell(selectedCell + 1);
-          setcurrentQuestionIndex(0);
-        }
-      }
-      if (selectedCell === 9) {
-        setCount(count + 1);
-        console.log(count);
-        if (count > 2) {
-          setSelectedCell(selectedCell + 1);
-          setcurrentQuestionIndex(0);
-        }
-      }
-      if (selectedCell === 31) {
-        setCount(count + 1);
-        console.log(count);
-        if (count > 2) {
-          setSelectedCell(selectedCell - 18);
           setcurrentQuestionIndex(0);
         }
       }
     }
   };
+  
 
   // Render grid cells
   const generateGrid = () => {
     const gridItems = [];
     for (let i = 1; i <= 100; i++) {
       const uniqueId = `cell-${i}`;
+      let cellContent = i;
+      let cellClassName = "grid-cell";
+      if (i === userlevel) {
+        // Display an icon for the current level cell
+        cellContent = <img src="./img/chess-icon.png" alt="Current Level" />;
+      }
+      if (i > userlevel) {
+        // Disable clicking on cells greater than the user's current level
+        cellClassName += " disabled-cell";
+      }
       gridItems.push(
-        <div key={uniqueId} className="grid-cell" onClick={() => handleCellClick(i)}>
-          <div className="level-number">{i}</div> {/* Level number */}
+        <div key={uniqueId} className={cellClassName} onClick={() => handleCellClick(i)}>
+          <div className="level-number">{cellContent}</div> {/* Level number or icon */}
           <img src={`./img/SL/sl${i}.png`} alt={`Image ${i}`} />
         </div>
       );
     }
     return gridItems;
   };
-
   // Render SnakeAndLadder component
 
   return (

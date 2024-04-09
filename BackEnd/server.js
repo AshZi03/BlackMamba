@@ -226,23 +226,42 @@ app.post('/alphabets', async (req, res) => {
   }  
 });
 
-app.post('/current', async (req, res) => {
-  const { userId } = req.body;
-  const query = 'SELECT user_level FROM users WHERE userid = ?';
-  db.query(query, [userId], (err, rows) => {
+app.post('/GetCurrentLevel', (req, res) => {
+  const { userid } = req.body;
+  console.log(userid,"this is user id");
+  const query = `SELECT user_level FROM users WHERE userid = ?`;
+  db.query(query, [userid], (err, results) => {
     if (err) {
-      console.error('Error fetching user level:', err);
-      res.status(500).json({ error: 'Internal server error' });
+      console.error('Error fetching user level from MySQL:', err);
+      res.status(500).json({ success: false, message: 'Internal server error' });
+      return;
+    }
+    if (results.length > 0) {
+      res.json({ success: true, level: results });
+      console.log(results,"this is level result");
     } else {
-      if (rows.length > 0) {
-        const userLevel = rows[0].user_level;
-        res.status(200).json({ userLevel });
-      } else {
-        res.status(404).json({ error: 'User not found' });
-      }
+      res.status(404).json({ success: false, message: 'User not found' });
     }
   });
 });
+
+app.post('/PostLevel', (req, res) => {
+  const { userid, level } = req.body;
+  const query = `UPDATE users SET user_level = ? WHERE userid = ?`;
+  db.query(query, [level, userid], (err, results) => {
+    if (err) {
+      console.error('Error updating user level in MySQL:', err);
+      res.status(500).json({ success: false, message: 'Internal server error' });
+      return;
+    }
+    if (results.affectedRows > 0) {
+      res.json({ success: true, message: 'User level updated successfully' });
+    } else {
+      res.status(404).json({ success: false, message: 'User not found' });
+    }
+  });
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
