@@ -15,6 +15,7 @@ import AboutUs from './AboutUs.jsx'
 import Instruction from './Instruction.jsx'
 import Content from './Content.jsx'
 import Congratulation from './Congratulation.jsx'
+import UserPanel from './UserPanel.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -35,6 +36,7 @@ function App() {
         <Route path="/Instruction" element={<Instruction />} />
         <Route path="/Content" element={<Content />} />
         <Route path="/Congratulation" element={<Congratulation />} />
+        <Route path="/UserPanel" element={<UserPanel />} />
       </Routes>
     </BrowserRouter>
   </>

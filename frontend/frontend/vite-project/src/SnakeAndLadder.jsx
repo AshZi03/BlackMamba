@@ -257,7 +257,7 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
       let cellClassName = "grid-cell";
       if (i === userlevel) {
         // Display an icon for the current level cell
-        cellContent = <img src="./img/chess-icon.png" alt="Current Level" />;
+        cellContent = <img src="./img/chess-icon1.svg" alt="Current Level" />;
       }
       if (i > userlevel) {
         // Disable clicking on cells greater than the user's current level

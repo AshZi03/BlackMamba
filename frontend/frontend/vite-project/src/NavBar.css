@@ -1,45 +1,43 @@
 /* NavBar.css */
 
 .navbar {
-    padding: 10px; /* Adjust the padding as needed for spacing around the Navbar */
-    z-index: 999;
-    position: fixed;
-    
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px; /* Adjust the padding as needed */
+  z-index: 999;
+  position: fixed;
+  width: 100%;
+  background-color: white; /* Background color of the navbar */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  margin-right: 10px;
+  margin-left: 3px; /* Adjust the margin to add space between logo and brand text */
+}
+
+.navbar-brand-text {
+  font-weight: bold;
+}
+.acolor{
+  text-decoration: none;
+  color: black;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .navbar-brand-text {
+    font-size: 14px; /* Adjust the font size for smaller screens if needed */
   }
-  
-  .logo-container {
-    display: flex;
-    align-items: center;
+
+  .navbar-logo {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px; /* Adjust the margin for smaller screens if needed */
   }
-  
-  .logo-container img {
-    margin-right: 10px; /* Adjust the margin to add space between logo and site name */
-  }
-  
-  .user-info-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-info-container .user-name {
-    font-weight: bold;
-    margin-right: 8px; /* Adjust the margin to add space between username and profile picture */
-  }
-  
-  /* Create distance between logo and user info */
-  .logo-container,
-  .user-info-container {
-    margin: 0 10px; /* Adjust the margin to create space between logo and user info */
-  }
-  
-  /* Responsive Styling */
-  @media (max-width: 768px) {
-    .logo-container img {
-      margin-right: 5px; /* Adjust the margin for smaller screens if needed */
-    }
-  
-    .user-info-container .user-name {
-      font-size: 14px; /* Adjust the font size for smaller screens if needed */
-    }
-  }
-  
+}
