@@ -192,6 +192,30 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
         } else if (selectedCell === 5 && count < 2) {
           setSubmitButton(0);
           setSelectedCell(selectedCell + 21);
+          setUserlevel(userlevel + 21);
+          try {
+            const url = 'http://localhost:8081/PostLevel';
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                level: userlevel + 21,
+                userid: userId,
+                // Add other parameters if needed
+              }),
+            });
+  
+            // Update userlevel state if the POST request is successful
+            if (response.ok) {
+             
+            } else {
+              console.error('Failed to update user level:', response.statusText);
+            }
+          } catch (error) {
+            console.error('Error sending POST request to backend:', error.message);
+          }
           setcurrentQuestionIndex(0);
           setCount(0);
         } else if (selectedCell === 9 && count < 2) {
@@ -246,7 +270,7 @@ const SnakeAndLadder = ({ loader1Progress, loader2Progress, setOption1, setOptio
       }
     }
   };
-  
+
 
   // Render grid cells
   const generateGrid = () => {
